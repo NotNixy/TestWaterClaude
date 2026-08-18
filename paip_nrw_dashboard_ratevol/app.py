@@ -1093,8 +1093,7 @@ transfers to real PAIP data; the exact AUC may not.
 # TAB 5 — Loss Composition
 # ==========================================================================
 with TAB_COMPOSITION:
-    _sub = st.tabs(["Composition"])
-    with _sub[0]:
+  
         st.markdown("#### Physical leakage versus commercial loss")
         st.markdown(T.callout(
             "Physical (real) losses are water escaping the network — pipe repair "
