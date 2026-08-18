@@ -245,14 +245,26 @@ with _hdr[1]:
 
 with _hdr[2]:
     with st.popover("Filters", width='stretch'):
-        region = st.selectbox("Region", sorted(yearly.region.unique()))
-        districts_all = sorted(yearly[yearly.region == region].district.unique())
-        districts = st.multiselect("District", districts_all,
-                                   default=districts_all)
-        areas = st.multiselect("Area type", sorted(yearly.area_type.unique()),
-                               default=sorted(yearly.area_type.unique()))
-        st.caption("Filters apply to every view.")
+        filter_by = st.radio("Filter by", ["Region", "District", "Area type"],
+                             horizontal=True)
 
+        if filter_by == "Region":
+            regions = st.multiselect("Region", sorted(yearly.region.unique()),
+                                     default=sorted(yearly.region.unique()))
+            districts = sorted(yearly.district.unique())
+            areas = sorted(yearly.area_type.unique())
+        elif filter_by == "District":
+            districts = st.multiselect("District", sorted(yearly.district.unique()),
+                                       default=sorted(yearly.district.unique()))
+            regions = sorted(yearly.region.unique())
+            areas = sorted(yearly.area_type.unique())
+        else:
+            areas = st.multiselect("Area type", sorted(yearly.area_type.unique()),
+                                   default=sorted(yearly.area_type.unique()))
+            regions = sorted(yearly.region.unique())
+            districts = sorted(yearly.district.unique())
+
+        st.caption("Filters apply to every view.")
 with _hdr[3]:
     with st.popover("Display", width='stretch'):
         st.radio("Appearance", ["Auto", "Light", "Dark"], horizontal=True,
