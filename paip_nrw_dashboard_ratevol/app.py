@@ -275,10 +275,10 @@ if is_partial(year):
         f'actuals; charts comparing years annualise them. Rates are unaffected.'
         f'</div>', unsafe_allow_html=True)
 
-mask = (yearly.year == year) & (yearly.region == region) \
+mask = (yearly.year == year) & yearly.region.isin(regions) \
        & yearly.district.isin(districts) & yearly.area_type.isin(areas)
 sel = yearly[mask].copy()
-mmask = (monthly.year == year) & (monthly.region == region) \
+mmask = (monthly.year == year) & monthly.region.isin(regions) \
         & monthly.district.isin(districts) & monthly.area_type.isin(areas)
 msel = monthly[mmask].copy()
 
