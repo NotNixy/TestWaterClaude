@@ -230,7 +230,7 @@ def rm(n):
 # single slim row; controls that apply to one view only (the LIPS weights) live
 # inside that view instead. Popovers keep the permanent height cost to one row.
 
-_hdr = st.columns([2.6, 1.05, 1.05, 1.0])
+_hdr = st.columns([2.6, 0.5, 0.5, 0.5])
 with _hdr[0]:
     st.markdown(
         f'<div class="brandbar"><span class="brand">Pengurusan Air Pahang '
