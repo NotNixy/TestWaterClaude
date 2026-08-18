@@ -250,7 +250,7 @@ with _hdr[2]:
         districts_all = sorted(yearly[yearly.region.isin(regions)].district.unique())
         districts = st.multiselect("District", districts_all,
                                    default=districts_all)
-        areas = st.selectbox("Area type", sorted(yearly.area_type.unique()),
+        areas = st.multiselect("Area type", sorted(yearly.area_type.unique()),
                                default=sorted(yearly.area_type.unique()))
         st.caption("Filters apply to every view.")
 
