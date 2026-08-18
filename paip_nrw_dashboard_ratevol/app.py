@@ -245,9 +245,8 @@ with _hdr[1]:
 
 with _hdr[2]:
     with st.popover("Filters", width='stretch'):
-        regions = st.multiselect("Region", sorted(yearly.region.unique()),
-                                 default=sorted(yearly.region.unique()))
-        districts_all = sorted(yearly[yearly.region.isin(regions)].district.unique())
+        region = st.selectbox("Region", sorted(yearly.region.unique()))
+        districts_all = sorted(yearly[yearly.region == region].district.unique())
         districts = st.multiselect("District", districts_all,
                                    default=districts_all)
         areas = st.multiselect("Area type", sorted(yearly.area_type.unique()),
@@ -269,11 +268,10 @@ if is_partial(year):
         f'actuals; charts comparing years annualise them. Rates are unaffected.'
         f'</div>', unsafe_allow_html=True)
 
-mask = (yearly.year == year) & yearly.region.isin(regions) \
+mask = (yearly.year == year) & (yearly.region == region) \
        & yearly.district.isin(districts) & yearly.area_type.isin(areas)
 sel = yearly[mask].copy()
-
-mmask = (monthly.year == year) & monthly.region.isin(regions) \
+mmask = (monthly.year == year) & (monthly.region == region) \
         & monthly.district.isin(districts) & monthly.area_type.isin(areas)
 msel = monthly[mmask].copy()
 
