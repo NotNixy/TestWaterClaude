@@ -443,30 +443,7 @@ with TAB_OVERVIEW:
             f'programme that never leaves this group addresses most of what is '
             f'physically retrievable.</div>', unsafe_allow_html=True)
 
-        # District is an administrative unit, not somewhere a crew is sent, so
-        # the rollup is kept but collapsed.
-        with st.expander("District rollup"):
-            dist = (sel.groupby("district", as_index=False)
-                       .agg(plants=("plant", "count"),
-                            production_m3=("production_m3", "sum"),
-                            nrw_m3=("nrw_m3", "sum"),
-                            physical_loss_m3=("physical_loss_m3", "sum"),
-                            value_rm=("nrw_value_rm", "sum"))
-                       .assign(nrw_pct=lambda d: d.nrw_m3 / d.production_m3 * 100)
-                       .sort_values("physical_loss_m3", ascending=False))
-            st.dataframe(
-                dist[["district", "plants", "physical_loss_m3", "nrw_m3",
-                      "production_m3", "nrw_pct", "value_rm"]],
-                width='stretch', hide_index=True,
-                column_config={
-                    "district": "District", "plants": "Plants",
-                    "physical_loss_m3": st.column_config.NumberColumn("Recoverable m³", format="%,d"),
-                    "nrw_m3": st.column_config.NumberColumn("NRW m³", format="%,d"),
-                    "production_m3": st.column_config.NumberColumn("Production m³", format="%,d"),
-                    "nrw_pct": st.column_config.NumberColumn("Loss rate", format="%.1f%%"),
-                    "value_rm": st.column_config.NumberColumn("Value RM", format="%,d")})
-
-
+     
 
 
 
